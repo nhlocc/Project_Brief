@@ -14,7 +14,7 @@ def validate_input(message: str, pattern: str, max_attempts: int = 5):
         pattern (str): A regular expression pattern used to validate the user's input.
         max_attempts (int): The maximum number of attempts allowed for valid input. Default is 5.
     Returns:
-        user_input(str): The input of user within the allowed attempts.
+        user_input(str): The valid input of user within the allowed attempts.
     Raise:
         Exception: If this function cannot be validated with the corresponding error.
     """
@@ -34,7 +34,7 @@ def validate_input(message: str, pattern: str, max_attempts: int = 5):
                 return user_input
             else:
                 attempt += 1
-                logger.error("Input invalid..please input again\n")
+                logger.error("Input invalid..Please input again\n")
         else:
             logger.error(f"Exceeded maximum attempts({max_attempts} times). Exiting...\n")
         return user_input
@@ -67,4 +67,4 @@ def log_duration(context: str):
             return wrapper
         return decorator
     except Exception as exc:
-        raise Exception("Cannot record due to log duration due to error: {}".format(exc))
+        raise Exception("Cannot record log duration due to error: {}".format(exc))

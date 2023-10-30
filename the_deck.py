@@ -51,7 +51,7 @@ class the_deck():
         Returns:
             reward_points(int): This function will return the reward points after the round completed.
         Raise:
-            Exception: If the cards cannot be compared the game with the corresponding error.
+            Exception: If the cards cannot be compared with the corresponding error.
         """
         try:
             deck = self.create_deck

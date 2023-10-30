@@ -19,7 +19,7 @@ class NumberGuessingGame():
         Description:
             This function will start the Number Guessing Game.
         Parameters:
-            player_name(str): the name of the player.
+            None
         Returns:
             None: This function only executes the code and does not return any value.
         Raise:
@@ -95,7 +95,7 @@ class NumberGuessingGame():
             self.logger.info("House's card is {}\n".format(house_card))
 
             user_input = utilities.validate_input(
-                "Please guess your card Greater/Less than House's card\n", r"\b(greater|g|less|l)\b")
+                "Please guess your card is Greater/Less than House's card\n", r"\b(greater|g|less|l)\b")
             player_card = deck("Player")
             greater_card = the_deck().compare_cards(house_card, player_card)
 
