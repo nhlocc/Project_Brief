@@ -25,12 +25,12 @@ def validate_input(message: str, pattern: str, max_attempts: int = 5):
         while attempt < max_attempts:
             try:
                 logger.info(f"{message}\n")
-                user_input = inputimeout('', timeout=60)
+                user_input = inputimeout('', timeout=60).lower()
             except TimeoutOccurred:
                 logger.error(f"Exceeded input timeout(60s). Exiting...\n")
                 return user_input
             logger.info(f"User input: {user_input}\n")
-            if re.match(pattern , user_input.lower()):
+            if re.match(pattern , user_input):
                 return user_input
             else:
                 attempt += 1
