@@ -126,4 +126,4 @@ class NumberGuessingGame():
 
 
 if __name__ == '__main__':
-    Player = NumberGuessingGame(player_name="Loc Huynh").start_game()
+    Player = NumberGuessingGame(player_name="Player").start_game()
