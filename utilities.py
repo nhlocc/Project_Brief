@@ -4,13 +4,13 @@ from logger import Logger
 from inputimeout import inputimeout, TimeoutOccurred
 
 
-def validate_input(message: str, pattern: str, max_attempts: int = 5):
+def user_input(message: str, pattern: str, max_attempts: int = 5):
     """
     Description:
         This function is designed to validate user input with a specified pattern.
         It allows the user a limited number of attempts to provide valid input.
     Parameters:
-        message (str): The message to display to the user, instructing them on what input is expected.
+        message (str): The message to display to the user, instructing what input is expected.
         pattern (str): A regular expression pattern used to validate the user's input.
         max_attempts (int): The maximum number of attempts allowed for valid input. Default is 5.
     Returns:
@@ -27,10 +27,10 @@ def validate_input(message: str, pattern: str, max_attempts: int = 5):
                 logger.info(f"{message}\n")
                 user_input = inputimeout('', timeout=60).lower()
             except TimeoutOccurred:
-                logger.error(f"Exceeded input timeout(60s). Exiting...\n")
+                logger.error("Exceeded input timeout(60s). Exiting...\n")
                 return user_input
             logger.info(f"User input: {user_input}\n")
-            if re.match(pattern , user_input):
+            if re.match(pattern, user_input):
                 return user_input
             else:
                 attempt += 1
@@ -38,8 +38,9 @@ def validate_input(message: str, pattern: str, max_attempts: int = 5):
         else:
             logger.error(f"Exceeded maximum attempts({max_attempts} times). Exiting...\n")
         return user_input
-    except Exception as e:
-        raise Exception("Cannot validate input due to error: {}".format(e))
+    except Exception as exc:
+        raise Exception(
+            "Cannot validate input due to error: {}".format(exc))
 
 
 def log_duration(context: str):
@@ -52,10 +53,12 @@ def log_duration(context: str):
     Returns:
         result: the result of the wrapped function's execution.
     Raise:
-        Exception: If this function cannot be record log duration with the corresponding error.
+        Exception: If this function cannot be record log duration with
+                   the corresponding error.
     """
     try:
         logger = Logger().logger
+
         def decorator(func):
             def wrapper(*args):
                 start_time = time.time()
@@ -67,4 +70,5 @@ def log_duration(context: str):
             return wrapper
         return decorator
     except Exception as exc:
-        raise Exception("Cannot record log duration due to error: {}".format(exc))
+        raise Exception(
+            "Cannot record log duration due to error: {}".format(exc))
