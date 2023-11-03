@@ -1,5 +1,6 @@
 import logging
 
+
 class Logger:
     _instance = None
 

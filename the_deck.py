@@ -1,63 +1,74 @@
 import random
 from logger import Logger
 
+
 class the_deck():
+    CARD_RANK = {
+            "Ace": 1, "2": 2, "3": 3, "4": 4, "5": 5,
+            "6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
+            "Jack": 11, "Queen": 12, "King": 13,
+            "Black Joker": 14, "Red Joker": 15
+            }
+
     def __init__(self):
-        self.groups = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
         self.suites = ["Spade", "Club", "Diamond", "Heart"]
-        self.greatest_cards = ["Black Joker", "Red Joker"]
         self.logger = Logger().logger
 
     @property
     def create_deck(self):
         deck = []
-        for i in self.groups:
-            for n in self.suites:
-                card = i + " " + n
+        for group, group_rank in self.CARD_RANK.items():
+            for suit in self.suites:
+                if group in ["Black Joker", "Red Joker"]:
+                    card = (group, group_rank, '')
+                else:
+                    card = (group, group_rank, suit)
                 deck.append(card)
-        deck.extend(self.greatest_cards)
-        self.deck = deck
-        return deck
+        return list(set(deck))
 
-    def get_cards(self):
+    def get_cards(self, deck):
         """
         Description:
             This function will get card in the deck.
         Parameters:
             None.
         Returns:
-            received_card(str): This function will return the random card after the player receives.
+            received_card(str): This function will return the random card
+                                after the player receives.
         Raise:
             Exception: If player cannot get card with the corresponding error.
         """
         try:
-            deck = self.create_deck
-            def inner_function(name):
+            def inner_function():
+                nonlocal deck
                 if len(deck) == 0:
-                    raise Exception(f"The current deck does not have any card for {name}")
+                    deck = self.create_deck
                 received_card = random.choice(deck)
                 deck.remove(received_card)
                 return received_card
             return inner_function
         except Exception as exc:
             raise Exception("Cannot get card with error: {}".format(exc))
-    
-    def compare_cards(self, first_card, second_card):
+
+    def compare_cards(self, house_card, player_card):
         """
         Description:
-            This function will start a new round in the match.
+            This function compares the player's card with the house's card in a round of the match.
         Parameters:
-            reward_points(int): the reward points of Player.
+            house_card (tuple): The house's card to be compared.
+            player_card (tuple): The player's card to be compared.
         Returns:
-            reward_points(int): This function will return the reward points after the round completed.
+            result (str): The result of the card comparison,
+                          which can be "Player's card higher," "equal," or "Player's card lower."
         Raise:
             Exception: If the cards cannot be compared with the corresponding error.
         """
         try:
-            deck = self.create_deck
-            if deck.index(first_card) > deck.index(second_card):
-                return first_card
+            if player_card[1] > house_card[1]:
+                return "player's card higher"
+            elif player_card[1] == house_card[1]:
+                return 'equal'
             else:
-                return second_card
+                return "player's card lower"
         except Exception as exc:
             raise Exception("Cannot compare cards with error: {}".format(exc))
