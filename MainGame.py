@@ -1,7 +1,7 @@
 import re
 import utilities
 from logger import Logger
-from the_deck import the_deck
+from the_deck import The_Deck
 
 
 class NumberGuessingGame():
@@ -35,7 +35,7 @@ class NumberGuessingGame():
                                                   r'\b(yes|y|no|n)\b')
                 if re.match(r'\b(yes|y)\b', user_input):
                     # Refresh the deck after every match.
-                    self.deck = the_deck().create_deck
+                    self.deck = The_Deck().create_deck
                     self.player_points = self.start_match(self.player_points)
                 else:
                     self.logger.info("Quitting the game\n")
@@ -98,7 +98,7 @@ class NumberGuessingGame():
         try:
             self.logger.info(
                 f"*** Starting round {round_number} with your current reward: {reward_points} ***\n")
-            get_card = the_deck().get_cards(self.deck)
+            get_card = The_Deck().get_cards(self.deck)
             house_card = get_card()
             self.logger.info(f"House's card is {house_card[0]} {house_card[2]}\n")
 
@@ -106,7 +106,7 @@ class NumberGuessingGame():
                 "Please guess your card is higher/lower than House's card\n", r"\b(higher|lower)\b")
             player_card = get_card()
 
-            result = the_deck().compare_cards(house_card, player_card)
+            result = The_Deck().compare_cards(house_card, player_card)
             self.logger.info(f"Your card is {player_card[0]} {player_card[2]}\n")
 
             if re.search(fr'\b({player_guess})\b', result):
