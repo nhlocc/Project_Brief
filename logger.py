@@ -1,4 +1,5 @@
 import logging
+from logging.handlers import RotatingFileHandler
 
 
 class Logger:
@@ -11,21 +12,24 @@ class Logger:
         return cls._instance
 
     @staticmethod
-    def set_up_logger(log_file: str, log_level: int):
+    def set_up_logger(log_file: str, log_level: int, max_bytes: int = 100000, backup_count: int = 5):
         """
         Description:
             This static method configures and returns a logger with the specified log file and log level.
         Parameters:
             log_file(str): The name of the log file where log entries will be saved.
             log_level(int): The logging level (e.g., logging.INFO, logging.DEBUG) for the logger.
+            max_bytes(int): The maximum size of a log file before it is rotated (in bytes).
+                            (Default is 100000 bytes)
+            backup_count(int): The number of backup log files to keep. Default is 5 backup files.
         Returns:
             logger(object): The configured logger instance.
         """
         logger = logging.getLogger()
         logger.setLevel(log_level)
 
-        # Create the filed handler to write log to a log file.
-        file_handler = logging.FileHandler(log_file, mode='w')
+        # Create the RotatingFileHandler for log rotation.
+        file_handler = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
 
         # Define the log format.
         log_format = '%(asctime)s [%(levelname)s] [in %(filename)s:%(lineno)d] [%(name)s] - %(message)s'
