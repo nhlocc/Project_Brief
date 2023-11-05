@@ -29,5 +29,6 @@ class TestValidateInput(unittest.TestCase):
         pattern = r'yes|no'
         with self.assertRaises(Exception) as context:
             user_input("Enter a valid input:", pattern)
-        expected_message = 'Cannot validate input due to error: An error occurred'
+        expected_message = 'An error occurred during input collection '\
+                           'and validation: An error occurred'
         self.assertEqual(str(context.exception), expected_message)

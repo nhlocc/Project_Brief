@@ -8,20 +8,27 @@ class Logger:
     def __new__(cls, log_file="game.log", log_level=logging.INFO):
         if cls._instance is None:
             cls._instance = super(Logger, cls).__new__(cls)
-            cls._instance.logger = cls._instance.set_up_logger(log_file, log_level)
+            cls._instance.logger = cls._instance.set_up_logger(
+                log_file, log_level)
         return cls._instance
 
     @staticmethod
-    def set_up_logger(log_file: str, log_level: int, max_bytes: int = 100000, backup_count: int = 5):
+    def set_up_logger(log_file: str, log_level: int,
+                      max_bytes: int = 100000,
+                      backup_count: int = 5):
         """
         Description:
-            This static method configures and returns a logger with the specified log file and log level.
+            This static method configures and returns a logger with the
+            specified log file and log level.
         Parameters:
-            log_file(str): The name of the log file where log entries will be saved.
-            log_level(int): The logging level (e.g., logging.INFO, logging.DEBUG) for the logger.
-            max_bytes(int): The maximum size of a log file before it is rotated (in bytes).
+            log_file(str): The name of the log file where log entries
+                            will be saved.
+            log_level(int): The logging level (e.g., logging.INFO,
+                            logging.DEBUG) for the logger.
+            max_bytes(int): The maximum size of a log file before it is rotated
                             (Default is 100000 bytes)
-            backup_count(int): The number of backup log files to keep. Default is 5 backup files.
+            backup_count(int): The number of backup log files to keep.
+                               (Default is 5 backup files)
         Returns:
             logger(object): The configured logger instance.
         """
@@ -29,10 +36,13 @@ class Logger:
         logger.setLevel(log_level)
 
         # Create the RotatingFileHandler for log rotation.
-        file_handler = RotatingFileHandler(log_file, maxBytes=max_bytes, backupCount=backup_count)
+        file_handler = RotatingFileHandler(log_file,
+                                           maxBytes=max_bytes,
+                                           backupCount=backup_count)
 
         # Define the log format.
-        log_format = '%(asctime)s [%(levelname)s] [in %(filename)s:%(lineno)d] [%(name)s] - %(message)s'
+        log_format = '%(asctime)s [%(levelname)s] [in %(filename)s:'\
+                     '%(lineno)d] [%(name)s] - %(message)s'
         formatter = logging.Formatter(log_format)
         file_handler.setFormatter(formatter)
 

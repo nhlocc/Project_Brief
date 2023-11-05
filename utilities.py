@@ -7,16 +7,20 @@ from inputimeout import inputimeout, TimeoutOccurred
 def user_input(message: str, pattern: str, max_attempts: int = 5):
     """
     Description:
-        This function is designed to validate user input with a specified pattern.
+        This function is designed to collect and validate user input with
+        a specified pattern.
         It allows the user a limited number of attempts to provide valid input.
     Parameters:
-        message (str): The message to display to the user, instructing what input is expected.
-        pattern (str): A regular expression pattern used to validate the user's input.
-        max_attempts (int): The maximum number of attempts allowed for valid input. Default is 5.
+        message(str): The message to display to the user, instructing what
+                      input is expected.
+        pattern(str): A regular expression pattern used to validate the
+                      user's input.
+        max_attempts(int): The maximum number of attempts allowed for valid
+                           input. (Default is 5)
     Returns:
         user_input(str): The valid input of user within the allowed attempts.
     Raise:
-        Exception: If this function cannot be validated with the corresponding error.
+        Exception: If an error occurs during input collection.
     """
     try:
         user_input = ''
@@ -36,20 +40,24 @@ def user_input(message: str, pattern: str, max_attempts: int = 5):
                 attempt += 1
                 logger.error("Input invalid..Please input again\n")
         else:
-            logger.error(f"Exceeded maximum attempts({max_attempts} times). Exiting...\n")
+            logger.error(
+                f"Exceeded maximum attempts({max_attempts} times).Exiting..\n")
         return user_input
     except Exception as exc:
         raise Exception(
-            "Cannot validate input due to error: {}".format(exc))
+            f"An error occurred during input collection and validation: {exc}")
 
 
 def log_duration(context: str):
     """
     Description:
-        This decorator function records the execution duration for the wrapper function.
-        It records the start time, end time, and duration of the function's execution.
+        This decorator function records the execution duration for the
+        wrapper function.
+        It records the start time, end time and duration of the function's
+        execution.
     Parameters:
-        context (str): The description of the context in which the function is executed.
+        context(str): The description of the context in which the function
+                      is executed.
     Returns:
         result: the result of the wrapped function's execution.
     Raise:
