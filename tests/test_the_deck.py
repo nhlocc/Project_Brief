@@ -7,7 +7,8 @@ class TestTheDeck(unittest.TestCase):
 
     @patch('the_deck.random.choice')
     def test_get_cards(self, mock_random_choice):
-        mock_random_choice.side_effect = [('2', 2, 'Diamond'), ('3', 3, 'Spade')]
+        mock_random_choice.side_effect = [
+            ('2', 2, 'Diamond'), ('3', 3, 'Spade')]
         the_deck = The_Deck()
         create_deck = the_deck.create_deck
         get_card = the_deck.get_cards(create_deck)
@@ -50,6 +51,6 @@ class TestTheDeck(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             the_deck.compare_cards(first_card, second_card)
         # Check the error message in the raised exception
-        expected_message = "Cannot compare cards with error:" \
-                           " '>' not supported between instances of 'int' and 'str'"
+        expected_message = "Cannot compare cards with error: '>' not " \
+                           "supported between instances of 'int' and 'str'"
         self.assertEqual(str(context.exception), expected_message)
