@@ -27,7 +27,7 @@ class The_Deck():
                 deck.append(card)
         return list(set(deck))
 
-    def get_cards(self, deck):
+    def get_cards(self, deck) -> str:
         """
         Description:
             This function will get card in the deck.
@@ -48,7 +48,7 @@ class The_Deck():
             return received_card
         return inner_function
 
-    def compare_cards(self, house_card, player_card):
+    def compare_cards(self, house_card, player_card) -> str:
         """
         Description:
             This function compares the player's card with the house's card in

@@ -4,7 +4,7 @@ from logger import Logger
 from inputimeout import inputimeout, TimeoutOccurred
 
 
-def user_input(message: str, pattern: str, max_attempts: int = 5):
+def user_input(message: str, pattern: str, max_attempts: int = 5) -> str:
     """
     Description:
         This function is designed to collect and validate user input with
