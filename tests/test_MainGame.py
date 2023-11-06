@@ -53,7 +53,8 @@ class TestNumberGuessingApp(unittest.TestCase):
                 game.start_game()
             # Check the expected error fails when re.match with None value.
             expected_message = "The game cannot be started with an error: "\
-                               "expected string or bytes-like object"
+                               "expected string or bytes-like object, "\
+                               "got 'NoneType'"
             self.assertEqual(str(context.exception), expected_message)
 
     @patch('MainGame.utilities.user_input', side_effect=['yes', 'yes', 'no'])

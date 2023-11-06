@@ -64,19 +64,15 @@ def log_duration(context: str):
         Exception: If this function cannot be record log duration with
                    the corresponding error.
     """
-    try:
-        logger = Logger().logger
+    logger = Logger().logger
 
-        def decorator(func):
-            def wrapper(*args):
-                start_time = time.time()
-                result = func(*args)
-                end_time = time.time()
-                duration = end_time - start_time
-                logger.info(f"{context} duration: {duration:.2f} seconds\n")
-                return result
-            return wrapper
-        return decorator
-    except Exception as exc:
-        raise Exception(
-            "Cannot record log duration due to error: {}".format(exc))
+    def decorator(func):
+        def wrapper(*args):
+            start_time = time.time()
+            result = func(*args)
+            end_time = time.time()
+            duration = end_time - start_time
+            logger.info(f"{context} duration: {duration:.2f} seconds\n")
+            return result
+        return wrapper
+    return decorator
