@@ -16,7 +16,7 @@ class NumberGuessingGame():
         self.deck = None
         self.logger = Logger().logger
 
-    def start_game(self):
+    def start_game(self) -> None:
         """
         Description:
             This function will start the Number Guessing Game.
@@ -56,7 +56,7 @@ class NumberGuessingGame():
             raise Exception(f"The game cannot be started with an error: {exc}")
 
     @utilities.log_duration('Match')
-    def start_match(self, player_points: int):
+    def start_match(self, player_points: int) -> int:
         """
         Description:
             This function will start a new match in the Number Guessing Game.
@@ -93,7 +93,7 @@ class NumberGuessingGame():
                 f"The match cannot be started with an error: {exc}")
 
     @utilities.log_duration('Round')
-    def start_round(self, reward_points: int, round_number: int):
+    def start_round(self, reward_points: int, round_number: int) -> int:
         """
         Description:
             This function will start a new round in the match.

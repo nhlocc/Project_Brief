@@ -15,7 +15,7 @@ class Logger:
     @staticmethod
     def set_up_logger(log_file: str, log_level: int,
                       max_bytes: int = 100000,
-                      backup_count: int = 5):
+                      backup_count: int = 5) -> object:
         """
         Description:
             This static method configures and returns a logger with the
