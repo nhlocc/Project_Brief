@@ -39,17 +39,14 @@ class The_Deck():
         Raise:
             Exception: If player cannot get card with the corresponding error.
         """
-        try:
-            def inner_function():
-                nonlocal deck
-                if len(deck) == 0:
-                    deck = self.create_deck
-                received_card = random.choice(deck)
-                deck.remove(received_card)
-                return received_card
-            return inner_function
-        except Exception as exc:
-            raise Exception("Cannot get card with error: {}".format(exc))
+        def inner_function():
+            nonlocal deck
+            if len(deck) == 0:
+                deck = self.create_deck
+            received_card = random.choice(deck)
+            deck.remove(received_card)
+            return received_card
+        return inner_function
 
     def compare_cards(self, house_card, player_card):
         """
